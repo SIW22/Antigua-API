@@ -1,4 +1,4 @@
-const db = require('../puzzles')
+const db = require('../models')
 
 const index = (req, res) => {
 	db.Puzzle.find({}, (err, foundPuzzles) => {

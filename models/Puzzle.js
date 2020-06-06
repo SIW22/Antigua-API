@@ -7,7 +7,7 @@ const PuzzleSchema = new Schema({
 		required: true,
 	},
 	imageFile: {
-		type: URL,
+		type: String,
 		required: true,
 	},
 	answerKey: {
