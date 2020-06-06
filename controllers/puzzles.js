@@ -25,7 +25,7 @@ const show = (req, res) => {
 
 const create = (req, res) => {
 	db.Puzzle.create(req.body, (err, savedPuzzle) => {
-		if (err) console.log('Error in puzzle#create:' err)
+		if (err) console.log('Error in puzzle#create:', err)
 
 		res.status(200).json({ puzzle: savedPuzzle })
 	})
