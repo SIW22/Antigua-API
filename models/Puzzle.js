@@ -10,6 +10,10 @@ const PuzzleSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	clue: {
+		type: String,
+		required: false,
+	},
 	answerKey: {
 		type: String,
 		required: true,
