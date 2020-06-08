@@ -4,7 +4,7 @@ const index = (req, res) => {
 	db.Puzzle.find({}, (err, foundPuzzles) => {
 		if (err) console.log('Error in Puzzles#index:', err)
 
-		if (!foundPuzzles) return res.jsono({
+		if (!foundPuzzles) return res.json({
 			message: "No puzzles were found in the database."
 		})
 
