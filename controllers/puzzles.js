@@ -13,7 +13,7 @@ const index = (req, res) => {
 }
 
 const show = (req, res) => {
-	db.Puzzle.findById(req.praams.id, (err, foundPuzzle) => {
+	db.Puzzle.findById(req.params.id, (err, foundPuzzle) => {
 		if (err) console.log('Error in puzzle#show:', err)
 		
 		if (!foundPuzzle) return res.json({
@@ -24,6 +24,7 @@ const show = (req, res) => {
 }
 
 const create = (req, res) => {
+	console.log("This is the req body", req.body);
 	db.Puzzle.create(req.body, (err, savedPuzzle) => {
 		if (err) console.log('Error in puzzle#create:', err)
 
