@@ -12,6 +12,18 @@ const index = (req, res) => {
 	})
 }
 
+const singlePuzzle = (req, res) => {
+	db.Puzzle.countDocuments({ puzzleType: 'scramble' }, function (err, count) {
+		let random = Math.floor(Math.random() * count)
+		db.Puzzle.findOne().skip(random).exec(
+			function (err, result) {
+				result = result.toJSON();
+				result.answerKey = result.answerKey.split('');
+				res.status(200).json({ puzzles: result })
+			})
+		})
+	}
+
 const show = (req, res) => {
 	db.Puzzle.findById(req.params.id, (err, foundPuzzle) => {
 		if (err) console.log('Error in puzzle#show:', err)
@@ -33,7 +45,7 @@ const create = (req, res) => {
 }
 
 const update = (req, res) => {
-	db.Puzzle.findByIdAndUpdate(req.params.id, { new: true }, req.body, (err, updatedPuzzle) => {
+	db.Puzzle.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, updatedPuzzle) => {
 		if (err) console.log('Error in puzzle#update:', err)
 		if (!updatedPuzzle) return res.json({ message: "Unable to update puzzle."})
 
@@ -51,5 +63,5 @@ const destroy = (req, res) => {
 }
 
 module.exports = {
-	index, show, create, update, destroy
+	index, singlePuzzle, show, create, update, destroy
 }

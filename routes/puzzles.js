@@ -4,6 +4,7 @@ const ctrl = require('../controllers')
 
 // routes
 router.get('/', ctrl.puzzles.index)
+router.get('/single', ctrl.puzzles.singlePuzzle)
 router.get('/:id', ctrl.puzzles.show)
 router.post('/', ctrl.puzzles.create)
 router.put('/:id', ctrl.puzzles.update)
