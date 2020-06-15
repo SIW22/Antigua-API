@@ -12,10 +12,10 @@ const index = (req, res) => {
 	})
 }
 
-const singlePuzzle = (req, res) => {
+const singleScramble = (req, res) => {
 	db.Puzzle.countDocuments({ puzzleType: 'scramble' }, function (err, count) {
 		let random = Math.floor(Math.random() * count)
-		db.Puzzle.findOne().skip(random).exec(
+		db.Puzzle.findOne({ puzzleType: 'scramble' }).skip(random).exec(
 			function (err, result) {
 				result = result.toJSON();
 				result.answerKey = result.answerKey.split('');
@@ -23,6 +23,42 @@ const singlePuzzle = (req, res) => {
 			})
 		})
 	}
+
+const singleCipher = (req, res) => {
+	db.Puzzle.countDocuments({ puzzleType: 'cipher' }, function (err, count) {
+		let random = Math.floor(Math.random() * count)
+		db.Puzzle.findOne({ puzzleType: 'cipher' }).skip(random).exec(
+			function (err, result) {
+				result = result.toJSON();
+				result.answerKey = result.answerKey.split('');
+				res.status(200).json({ puzzles: result })
+			})
+		})
+	}
+
+	const singleSymbol = (req, res) => {
+		db.Puzzle.countDocuments({ puzzleType: 'symbol' }, function (err, count) {
+			let random = Math.floor(Math.random() * count)
+			db.Puzzle.findOne({ puzzleType: 'symbol' }).skip(random).exec(
+				function (err, result) {
+					result = result.toJSON();
+					result.answerKey = result.answerKey.split('');
+					res.status(200).json({ puzzles: result })
+				})
+			})
+		}
+
+		const singleTileLoc = (req, res) => {
+			db.Puzzle.countDocuments({ puzzleType: 'tileloc' }, function (err, count) {
+				let random = Math.floor(Math.random() * count)
+				db.Puzzle.findOne({ puzzleType: 'tileloc' }).skip(random).exec(
+					function (err, result) {
+						result = result.toJSON();
+						result.answerKey = result.answerKey.split('');
+						res.status(200).json({ puzzles: result })
+					})
+				})
+			}
 
 const show = (req, res) => {
 	db.Puzzle.findById(req.params.id, (err, foundPuzzle) => {
@@ -63,5 +99,5 @@ const destroy = (req, res) => {
 }
 
 module.exports = {
-	index, singlePuzzle, show, create, update, destroy
+	index, singleScramble, singleCipher, singleSymbol, singleTileLoc, show, create, update, destroy
 }
